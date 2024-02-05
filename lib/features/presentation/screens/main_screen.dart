@@ -13,9 +13,7 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-
 class _MainScreenState extends State<MainScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -25,6 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<SolarSystemBloc>(context);
     return Scaffold(
       drawer: Drawer(
         child: Center(
@@ -33,12 +32,19 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               CustomTextBtn(
                   onPressed: () {
-                    BlocProvider.of<SolarSystemBloc>(context)
-                        .add(SolarSystem());
+                    bloc.add(SolarSystemPlanets());
                   },
                   title: "Planets"),
-              CustomTextBtn(onPressed: () {}, title: "Satellite"),
-              CustomTextBtn(onPressed: () {}, title: "Asteroids"),
+              CustomTextBtn(
+                  onPressed: () {
+                    bloc.add(SolarSystemMoons());
+                  },
+                  title: "Satellite"),
+              CustomTextBtn(
+                  onPressed: () {
+                    bloc.add(SolarSystemAsteroids());
+                  },
+                  title: "Asteroids"),
             ],
           ),
         ),
@@ -57,10 +63,12 @@ class _MainScreenState extends State<MainScreen> {
         child: Center(
           child: BlocBuilder<SolarSystemBloc, SolarSystemState>(
             builder: (context, state) {
-              print("work");
+              debugPrint("work");
               if (state is SolarSystemLoading) {
                 return const Center(
-                  child: CircularProgressIndicator.adaptive(),
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  ),
                 );
               } else if (state is SolarSystemSuccess) {
                 return SizedBox(
@@ -70,22 +78,15 @@ class _MainScreenState extends State<MainScreen> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 60),
                           child: SolarCard(
-                            name: state.model.bodies?[index].name ?? "null",
-                            isPlanet:
-                                state.model.bodies?[index].isPlanet ?? false,
-                            alternativeName:
-                                state.model.bodies?[index].alternativeName ??
-                                    "null",
-                            bodyType:
-                                state.model.bodies?[index].bodyType ?? "null",
-                            discoveryDate:
-                                state.model.bodies?[index].discoveryDate ??
-                                    "null",
-                            eccentricity: state
-                                    .model.bodies?[index].eccentricity
-                                    .toString() ??
-                                "null",
-                          ),
+                              name: state.model[index].name ?? "",
+                              isPlanet: state.model[index].isPlanet ?? false,
+                              alternativeName:
+                                  state.model[index].alternativeName ?? "null",
+                              bodyType: state.model[index].bodyType ?? "null",
+                              discoveryDate:
+                                  state.model[index].discoveryDate ?? "null",
+                              eccentricity:
+                                  state.model[index].eccentricity.toString()),
                         );
                       },
                       separatorBuilder: (_, index) {
@@ -93,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                           height: 70,
                         );
                       },
-                      itemCount: state.model.bodies?.length ?? 0),
+                      itemCount: state.model.length),
                 );
               } else if (state is SolarSystemError) {
                 return Text(

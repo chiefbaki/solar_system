@@ -9,7 +9,7 @@ class SolarSystemInitial extends SolarSystemState {}
 class SolarSystemLoading extends SolarSystemState {}
 
 class SolarSystemSuccess extends SolarSystemState {
-  final SolarSystemModel model;
+  final List<Bodies> model;
   SolarSystemSuccess({required this.model});
 }
 
