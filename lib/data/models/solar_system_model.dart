@@ -48,7 +48,7 @@ class Bodies {
   String? discoveredBy;
   String? discoveryDate;
   String? alternativeName;
-  double? axialTilt;
+  num? axialTilt;
   int? avgTemp;
   double? mainAnomaly;
   double? argPeriapsis;

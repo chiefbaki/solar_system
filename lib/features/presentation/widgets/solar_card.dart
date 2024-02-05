@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class SolarCard extends StatelessWidget {
+class SolarCard extends StatefulWidget {
   final String name;
   final bool isPlanet;
   final String alternativeName;
@@ -14,6 +14,11 @@ class SolarCard extends StatelessWidget {
     
   });
 
+  @override
+  State<SolarCard> createState() => _SolarCardState();
+}
+
+class _SolarCardState extends State<SolarCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +37,7 @@ class SolarCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Name: $name",
+              "Name: ${widget.name}",
               style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -42,7 +47,7 @@ class SolarCard extends StatelessWidget {
               height: 3,
             ),
             Text(
-              "is planet? $isPlanet",
+              "is planet? ${widget.isPlanet}",
               style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -52,7 +57,7 @@ class SolarCard extends StatelessWidget {
               height: 3,
             ),
             Text(
-              "alternativeName: $alternativeName}",
+              "alternativeName: ${widget.alternativeName}}",
               style:const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -62,7 +67,7 @@ class SolarCard extends StatelessWidget {
               height: 3,
             ),
             Text(
-              "bodyType: $bodyType",
+              "bodyType: ${widget.bodyType}",
               style:const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -72,7 +77,7 @@ class SolarCard extends StatelessWidget {
               height: 3,
             ),
             Text(
-              "discoveryDate: $discoveryDate",
+              "discoveryDate: ${widget.discoveryDate}",
               style:const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -82,7 +87,7 @@ class SolarCard extends StatelessWidget {
               height: 3,
             ),
             Text(
-              "eccentricity: $eccentricity",
+              "eccentricity: ${widget.eccentricity}",
               style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
