@@ -13,7 +13,16 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
+
 class _MainScreenState extends State<MainScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<SolarSystemBloc>(context).add(SolarSystem());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: ListView.separated(
                       itemBuilder: (_, index) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          padding: const EdgeInsets.symmetric(horizontal: 60),
                           child: SolarCard(
                             name: state.model.bodies?[index].name ?? "null",
                             isPlanet:
@@ -81,13 +90,16 @@ class _MainScreenState extends State<MainScreen> {
                       },
                       separatorBuilder: (_, index) {
                         return const SizedBox(
-                          height: 50,
+                          height: 70,
                         );
                       },
                       itemCount: state.model.bodies?.length ?? 0),
                 );
               } else if (state is SolarSystemError) {
-                return Text(state.error.toString(), style: const TextStyle(color: Colors.white),);
+                return Text(
+                  state.error.toString(),
+                  style: const TextStyle(color: Colors.white),
+                );
               } else {
                 return const SizedBox.shrink();
               }
