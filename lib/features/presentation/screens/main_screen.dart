@@ -45,6 +45,18 @@ class _MainScreenState extends State<MainScreen> {
                     bloc.add(SolarSystemAsteroids());
                   },
                   title: "Asteroids"),
+
+              CustomTextBtn(
+                  onPressed: () {
+                    bloc.add(SolarSystemStars());
+                  },
+                  title: "Star"),
+
+              CustomTextBtn(
+                  onPressed: () {
+                    bloc.add(SolarSystemComets());
+                  },
+                  title: "Comet"),
             ],
           ),
         ),

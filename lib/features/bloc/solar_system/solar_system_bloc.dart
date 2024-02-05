@@ -45,9 +45,37 @@ class SolarSystemBloc extends Bloc<SolarSystemEvent, SolarSystemState> {
       emit(SolarSystemLoading());
       try {
         SolarSystemModel model = await repository.getData();
-        List<Bodies> asteroids =
-            model.bodies!.where((element) => element.bodyType == "Asteroid").toList();
-            emit(SolarSystemSuccess(model: asteroids));
+        List<Bodies> asteroids = model.bodies!
+            .where((element) => element.bodyType == "Asteroid")
+            .toList();
+        emit(SolarSystemSuccess(model: asteroids));
+      } catch (e) {
+        emit(SolarSystemError(error: e.toString()));
+      }
+    });
+
+    on<SolarSystemStars>((event, emit) async {
+      emit(SolarSystemLoading());
+      try {
+        SolarSystemModel model = await repository.getData();
+        List<Bodies> stars = model.bodies!
+            .where((element) => element.bodyType == "Star")
+            .toList();
+        emit(SolarSystemSuccess(model: stars));
+      } catch (e) {
+        emit(SolarSystemError(error: e.toString()));
+      }
+    });
+
+
+    on<SolarSystemComets>((event, emit) async {
+      emit(SolarSystemLoading());
+      try {
+        SolarSystemModel model = await repository.getData();
+        List<Bodies> comets = model.bodies!
+            .where((element) => element.bodyType == "Comet")
+            .toList();
+        emit(SolarSystemSuccess(model: comets));
       } catch (e) {
         emit(SolarSystemError(error: e.toString()));
       }
