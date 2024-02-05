@@ -23,9 +23,12 @@ class App extends StatelessWidget {
       child: BlocProvider(
         create: (context) => SolarSystemBloc(
             repository: RepositoryProvider.of<SolarSytemRepository>(context)),
-        child: const MaterialApp(
+        child: MaterialApp(
+          theme: ThemeData(
+            fontFamily: "Robotics"
+          ),
           debugShowCheckedModeBanner: false,
-          home: MainScreen(),
+          home: const MainScreen(),
         ),
       ),
     );
